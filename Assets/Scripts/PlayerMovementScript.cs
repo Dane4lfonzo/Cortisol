@@ -7,11 +7,16 @@ public class PlayerMovementScript : MonoBehaviour
     private Vector2 movement;
     [SerializeField] float movementSpeed;
     private Rigidbody2D myRigidbody;
+    private SpriteRenderer spriteAnim;
+    private Animator playerAnim;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         Input = new PlayerInput();
         myRigidbody = GetComponent<Rigidbody2D>();
+        spriteAnim = GetComponent<SpriteRenderer>();
+        playerAnim = GetComponent<Animator>();
+
     }
     void Start()
     {
@@ -21,7 +26,8 @@ public class PlayerMovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        MovementAnimations();
+        FlipAnim();
     }
 
     void FixedUpdate()
@@ -46,4 +52,32 @@ public class PlayerMovementScript : MonoBehaviour
     {
         movement = context.ReadValue<Vector2>();
     }
+
+    void FlipAnim()
+    {
+        if (movement.x > 0)
+        {
+            spriteAnim.flipX = false;
+        }
+        else if (movement.y > 0)
+        {
+            spriteAnim.flipX = false;
+        }
+        else if (movement.y < 0)
+        {
+            spriteAnim.flipX = false;
+        }
+        else if (movement.x < 0)
+        {
+            spriteAnim.flipX = true;
+        }
+    }
+
+    void MovementAnimations()
+    {
+        playerAnim.SetFloat("MoveSpeed", myRigidbody.linearVelocity.magnitude);
+        playerAnim.SetFloat("MoveX", myRigidbody.linearVelocityX);
+        playerAnim.SetFloat("MoveY", myRigidbody.linearVelocityY);
+    }
+
 }
