@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +10,10 @@ public class PlayerMovementScript : MonoBehaviour
     private Rigidbody2D myRigidbody;
     private SpriteRenderer spriteAnim;
     private Animator playerAnim;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    private bool doTest = false;
+    private float subtractValue;
+
     void Awake()
     {
         Input = new PlayerInput();
@@ -28,11 +32,13 @@ public class PlayerMovementScript : MonoBehaviour
     {
         MovementAnimations();
         FlipAnim();
+
+        TestMovementChallenge();
     }
 
     void FixedUpdate()
     {
-        myRigidbody.linearVelocity = movement * movementSpeed;
+        myRigidbody.linearVelocity = movement * (movementSpeed + subtractValue);
     }
 
     void OnEnable()
@@ -59,11 +65,11 @@ public class PlayerMovementScript : MonoBehaviour
         {
             spriteAnim.flipX = false;
         }
-        else if (movement.y > 0)
+        else if (movement.y > 0 && movement.x == 0)
         {
             spriteAnim.flipX = false;
         }
-        else if (movement.y < 0)
+        else if (movement.y < 0 && movement.x == 0)
         {
             spriteAnim.flipX = false;
         }
@@ -80,4 +86,27 @@ public class PlayerMovementScript : MonoBehaviour
         playerAnim.SetFloat("MoveY", myRigidbody.linearVelocityY);
     }
 
+    void TestMovementChallenge()
+    {
+        if (Keyboard.current.jKey.wasReleasedThisFrame && !doTest)
+        {
+            doTest = true;
+        }
+
+        else if (Keyboard.current.jKey.wasReleasedThisFrame && doTest)
+        {
+            doTest = false;
+        }
+
+        if (doTest)
+        {
+            subtractValue = -2;
+        }
+        else
+        {
+            subtractValue = 0;
+        }
+
+
+    }
 }
