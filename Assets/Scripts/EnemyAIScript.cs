@@ -8,10 +8,18 @@ public class EnemyAiScript : MonoBehaviour
     public LayerMask playerLayer;
     public float moveSpeed = 3f;
     private LogicScript Logic;
-
     private Rigidbody2D myRigidbody;
     private Vector2 movement;
     private bool canSeePlayer;
+
+    private float triggerCooldown = 2;
+    private float triggerTimer;
+    private bool beginTriggerCooldown = false;
+    [SerializeField] float bopSpeed = 20;
+    [SerializeField] float bopHeight = 0.003f;
+    private float chatDuration = 3;
+    private float chatTimer;
+
 
     void Awake()
     {
@@ -22,8 +30,61 @@ public class EnemyAiScript : MonoBehaviour
     void Update()
     {
         Detection();
+        TriggerCooldown();
 
-        
+
+        if (Logic.GetSocialColleague())
+        {
+            YouHaveToChat();
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (canSeePlayer && !Logic.GetSocialColleague())
+        {
+            myRigidbody.MovePosition(myRigidbody.position + movement * moveSpeed * Time.fixedDeltaTime);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 3 && !beginTriggerCooldown)
+        {
+            Logic.SocialColleague(true);
+            beginTriggerCooldown = true;
+        }
+    }
+
+    void TriggerCooldown()
+    {
+        if (beginTriggerCooldown && !Logic.GetSocialColleague())
+        {
+            triggerTimer += Time.deltaTime;
+
+            if (triggerTimer >= triggerCooldown)
+            {
+                beginTriggerCooldown = false;
+                triggerTimer = 0;
+            }
+        }   
+    }
+
+    void YouHaveToChat()
+    {
+        chatTimer += Time.deltaTime;
+
+        if (chatTimer <= chatDuration)
+        {
+            float newY = transform.position.y - Mathf.Cos(Time.time * bopSpeed) * bopHeight;
+            
+            transform.position = new Vector2(transform.position.x, newY);
+        }
+        else
+        {
+            chatTimer = 0;
+            Logic.SocialColleague(false);
+        }
     }
 
     void Detection()
@@ -69,13 +130,7 @@ public class EnemyAiScript : MonoBehaviour
         }   
     }
 
-    void FixedUpdate()
-    {
-        if (canSeePlayer)
-        {
-            myRigidbody.MovePosition(myRigidbody.position + movement * moveSpeed * Time.fixedDeltaTime);
-        }
-    }
+
 
     void OnDrawGizmosSelected()
     {
