@@ -10,43 +10,55 @@ public class PlayerMovementScript : MonoBehaviour
     private Rigidbody2D myRigidbody;
     private SpriteRenderer spriteAnim;
     private Animator playerAnim;
+    [SerializeField] float bopSpeed = 20;
+    [SerializeField] float bopHeight = 0.003f;
 
-    private bool doTest = false;
-    private float subtractValue;
+    private LogicScript Logic;
+    [SerializeField] float talkHopInterval;
+    [SerializeField] float talkDuration;
+    private float talkTimer;
 
     void Awake()
     {
         Input = new PlayerInput();
+        Logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
         myRigidbody = GetComponent<Rigidbody2D>();
         spriteAnim = GetComponent<SpriteRenderer>();
         playerAnim = GetComponent<Animator>();
-
     }
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
         MovementAnimations();
         FlipAnim();
 
-        TestMovementChallenge();
+        if (Logic.GetSocialColleague())
+        {
+            YouHaveToChat();
+        }  
     }
 
     void FixedUpdate()
     {
-        myRigidbody.linearVelocity = movement * (movementSpeed + subtractValue);
+        if (!Logic.GetSocialColleague())
+        {
+            myRigidbody.linearVelocity = movement * movementSpeed;  
+        }
+        else
+        {
+            myRigidbody.linearVelocity = Vector2.zero;
+        }
     }
+
+    
 
     void OnEnable()
     {
         Input.Enable();
 
         Input.Gameplay.Movement.performed += OnMovement;
-        Input.Gameplay.Movement.canceled += OnMovement;
+        Input.Gameplay.Movement.canceled += OnMovement;            
+
     }
 
     void OnDisable()
@@ -86,27 +98,11 @@ public class PlayerMovementScript : MonoBehaviour
         playerAnim.SetFloat("MoveY", myRigidbody.linearVelocityY);
     }
 
-    void TestMovementChallenge()
+    void YouHaveToChat()
     {
-        if (Keyboard.current.jKey.wasReleasedThisFrame && !doTest)
-        {
-            doTest = true;
-        }
-
-        else if (Keyboard.current.jKey.wasReleasedThisFrame && doTest)
-        {
-            doTest = false;
-        }
-
-        if (doTest)
-        {
-            subtractValue = -2;
-        }
-        else
-        {
-            subtractValue = 0;
-        }
-
-
+        float newY = transform.position.y + Mathf.Cos(Time.time * bopSpeed) * bopHeight;
+        
+         transform.position = new Vector2(transform.position.x, newY);
     }
+
 }
