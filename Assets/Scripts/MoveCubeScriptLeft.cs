@@ -1,9 +1,10 @@
 using UnityEngine;
 
-public class MoveCubeScript : MonoBehaviour
+public class MoveCubeScriptLeft : MonoBehaviour
 {
 
     private Rigidbody2D myRigidbody;
+    [SerializeField] float speedModifier;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,10 +15,19 @@ public class MoveCubeScript : MonoBehaviour
     void Update()
     {
         MoveCube();
+        Boundary();
     }
 
     void MoveCube()
     {
-        myRigidbody.linearVelocity = new Vector2(10, 0);
+        myRigidbody.linearVelocity = new Vector2(speedModifier, myRigidbody.linearVelocityY);
+    }
+
+    void Boundary()
+    {
+        if (transform.position.x >= -0.5)
+        {
+            Destroy(gameObject);
+        }
     }
 }
