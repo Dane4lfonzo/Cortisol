@@ -11,17 +11,17 @@ public class PlayerMovementScript : MonoBehaviour
     private SpriteRenderer spriteAnim;
     private Animator playerAnim;
 
-    private bool doTest = false;
-    private float subtractValue;
+    private LogicScript Logic;
 
     void Awake()
     {
         Input = new PlayerInput();
+        Logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
         myRigidbody = GetComponent<Rigidbody2D>();
         spriteAnim = GetComponent<SpriteRenderer>();
         playerAnim = GetComponent<Animator>();
-
     }
+
     void Start()
     {
         
@@ -33,12 +33,11 @@ public class PlayerMovementScript : MonoBehaviour
         MovementAnimations();
         FlipAnim();
 
-        TestMovementChallenge();
     }
 
     void FixedUpdate()
     {
-        myRigidbody.linearVelocity = movement * (movementSpeed + subtractValue);
+        myRigidbody.linearVelocity = movement * movementSpeed;
     }
 
     void OnEnable()
@@ -86,27 +85,5 @@ public class PlayerMovementScript : MonoBehaviour
         playerAnim.SetFloat("MoveY", myRigidbody.linearVelocityY);
     }
 
-    void TestMovementChallenge()
-    {
-        if (Keyboard.current.jKey.wasReleasedThisFrame && !doTest)
-        {
-            doTest = true;
-        }
 
-        else if (Keyboard.current.jKey.wasReleasedThisFrame && doTest)
-        {
-            doTest = false;
-        }
-
-        if (doTest)
-        {
-            subtractValue = -2;
-        }
-        else
-        {
-            subtractValue = 0;
-        }
-
-
-    }
 }
