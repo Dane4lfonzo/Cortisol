@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EnemyAiScript : MonoBehaviour
 {
+    private GameObject PlayerObject;
     public Transform player;
     public float detectRange = 8f;
     public LayerMask obstacleLayer;
@@ -25,6 +26,9 @@ public class EnemyAiScript : MonoBehaviour
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         Logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
+        PlayerObject = GameObject.Find("Player");
+        player = PlayerObject.transform;
+
     }
 
     void Update()
