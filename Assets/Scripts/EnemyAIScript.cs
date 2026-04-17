@@ -8,7 +8,7 @@ public class EnemyAiScript : MonoBehaviour
     public LayerMask obstacleLayer;
     public LayerMask playerLayer;
     public float moveSpeed = 3f;
-    private LogicScript Logic;
+    //private LogicScript Logic;
     private Rigidbody2D myRigidbody;
     private Vector2 movement;
     private bool canSeePlayer;
@@ -20,15 +20,16 @@ public class EnemyAiScript : MonoBehaviour
     [SerializeField] float bopHeight = 0.003f;
     private float chatDuration = 3;
     private float chatTimer;
+    private bool isChatting = false;
+    private int enemyCollisionLayer;
 
 
     void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
-        Logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
+        //Logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
         PlayerObject = GameObject.Find("Player");
         player = PlayerObject.transform;
-
     }
 
     void Update()
@@ -36,8 +37,7 @@ public class EnemyAiScript : MonoBehaviour
         Detection();
         TriggerCooldown();
 
-
-        if (Logic.GetSocialColleague())
+        if (isChatting)
         {
             YouHaveToChat();
         }
@@ -45,7 +45,7 @@ public class EnemyAiScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (canSeePlayer && !Logic.GetSocialColleague())
+        if (canSeePlayer && !isChatting)
         {
             myRigidbody.MovePosition(myRigidbody.position + movement * moveSpeed * Time.fixedDeltaTime);
         }
@@ -55,14 +55,15 @@ public class EnemyAiScript : MonoBehaviour
     {
         if (collision.gameObject.layer == 3 && !beginTriggerCooldown)
         {
-            Logic.SocialColleague(true);
+            isChatting = true;
             beginTriggerCooldown = true;
         }
+
     }
 
     void TriggerCooldown()
     {
-        if (beginTriggerCooldown && !Logic.GetSocialColleague())
+        if (beginTriggerCooldown && !isChatting)
         {
             triggerTimer += Time.deltaTime;
 
@@ -87,7 +88,7 @@ public class EnemyAiScript : MonoBehaviour
         else
         {
             chatTimer = 0;
-            Logic.SocialColleague(false);
+            isChatting = false;
         }
     }
 
