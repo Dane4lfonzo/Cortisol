@@ -3,21 +3,28 @@ using UnityEngine;
 public class CompanionLockOn : MonoBehaviour
 {
     [Header("Lock-On Settings")]
-    public float lockRange = 6f;              // how far you can lock on
-    public LayerMask targetLayer;             // set this to enemy/worker layer
-    public KeyCode lockKey = KeyCode.Tab;     // CHANGE THIS if you want another key
+    public float lockRange = 6f;
+    public LayerMask targetLayer;
+    public KeyCode lockKey = KeyCode.Tab;
 
     [Header("Current Target")]
     public Transform currentTarget;
 
     [Header("Reticle")]
-    public GameObject reticleObject;          // DRAG YOUR RETICLE OBJECT HERE
+    public GameObject reticleObject;
 
     void Update()
     {
-        if (Input.GetKeyDown(lockKey))
+        // 🔁 While holding key → keep locking
+        if (Input.GetKey(lockKey))
         {
             FindNearestTarget();
+        }
+
+        // ❌ When key released → clear target
+        if (Input.GetKeyUp(lockKey))
+        {
+            currentTarget = null;
         }
 
         UpdateReticle();
@@ -32,6 +39,10 @@ public class CompanionLockOn : MonoBehaviour
 
         foreach (Collider2D hit in hits)
         {
+            // 🚫 Ignore self
+            if (hit.transform == transform)
+                continue;
+
             float distance = Vector2.Distance(transform.position, hit.transform.position);
 
             if (distance < closestDistance)
@@ -42,15 +53,6 @@ public class CompanionLockOn : MonoBehaviour
         }
 
         currentTarget = nearest;
-
-        if (currentTarget != null)
-        {
-            Debug.Log("Locked on: " + currentTarget.name);
-        }
-        else
-        {
-            Debug.Log("No target in range.");
-        }
     }
 
     void UpdateReticle()
@@ -61,11 +63,12 @@ public class CompanionLockOn : MonoBehaviour
         {
             reticleObject.SetActive(true);
 
-            // 🔧 CHANGE THIS OFFSET IF RETICLE IS TOO HIGH/LOW
+            // 🔧 Adjust Y offset if needed
             reticleObject.transform.position = currentTarget.position + new Vector3(0f, 1f, 0f);
         }
         else
         {
+            // 🔥 THIS IS WHAT YOU WERE MISSING
             reticleObject.SetActive(false);
         }
     }
