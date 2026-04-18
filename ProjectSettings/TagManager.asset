@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ScoreScript
   - Logic
+  - RhythmManager
   layers:
   - Default
   - TransparentFX
