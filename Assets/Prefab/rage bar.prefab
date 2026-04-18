@@ -34,7 +34,7 @@ Transform:
   - {fileID: 7065339597349326886}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3025268387430345024
+--- !u!1 &4781093428641445213
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,69 +42,70 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9033795419722131869}
-  - component: {fileID: 4672336933467853788}
-  - component: {fileID: 1761570367935824440}
-  m_Layer: 5
-  m_Name: Pressurefill
+  - component: {fileID: 3525071118804325650}
+  - component: {fileID: 639087044048304220}
+  - component: {fileID: 4433332472748975170}
+  m_Layer: 0
+  m_Name: thermometer_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &9033795419722131869
+--- !u!224 &3525071118804325650
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3025268387430345024}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 4781093428641445213}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.42484015, y: 1.0931695, z: 1.1507049}
+  m_LocalScale: {x: 60.28, y: 60.28, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5056995379375042446}
+  m_Children:
+  - {fileID: 7000523418894645415}
+  m_Father: {fileID: 4910639133122268501}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2, y: 1.9}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 857, y: -50}
+  m_SizeDelta: {x: 1.89, y: 15.22}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &4672336933467853788
+--- !u!222 &639087044048304220
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3025268387430345024}
+  m_GameObject: {fileID: 4781093428641445213}
   m_CullTransparentMesh: 1
---- !u!114 &1761570367935824440
+--- !u!114 &4433332472748975170
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3025268387430345024}
+  m_GameObject: {fileID: 4781093428641445213}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 3
+  m_Sprite: {fileID: 1641749230627347584, guid: dafaba48c2421d449b63a23945c87a72, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 1
-  m_FillAmount: 0.5
+  m_FillMethod: 4
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -140,7 +141,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5056995379375042446}
+  - {fileID: 3525071118804325650}
   m_Father: {fileID: 8358705347642107911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -211,7 +212,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!1 &6294434138121426523
+--- !u!1 &5926538574459360813
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -219,70 +220,69 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5056995379375042446}
-  - component: {fileID: 2863313088915038647}
-  - component: {fileID: 5723426416318757116}
+  - component: {fileID: 7000523418894645415}
+  - component: {fileID: 2434466983245099384}
+  - component: {fileID: 9122929213655378236}
   m_Layer: 5
-  m_Name: Pressure meter bg
+  m_Name: Pressurefill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &5056995379375042446
+--- !u!224 &7000523418894645415
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6294434138121426523}
+  m_GameObject: {fileID: 5926538574459360813}
   m_LocalRotation: {x: -0, y: -0.00000046193594, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0000009238719}
-  m_LocalScale: {x: 0.014944913, y: 0.06554786, z: 0.043698575}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.013437499, y: 0.145583, z: 2.1284099}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 9033795419722131869}
-  m_Father: {fileID: 4910639133122268501}
+  m_Children: []
+  m_Father: {fileID: 3525071118804325650}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -0.02, y: -0.45}
+  m_SizeDelta: {x: 32.42, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &2863313088915038647
+--- !u!222 &2434466983245099384
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6294434138121426523}
+  m_GameObject: {fileID: 5926538574459360813}
   m_CullTransparentMesh: 1
---- !u!114 &5723426416318757116
+--- !u!114 &9122929213655378236
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6294434138121426523}
+  m_GameObject: {fileID: 5926538574459360813}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2250282912374363044, guid: ec6b957bd5daf9341887e7c27bebf276, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillMethod: 1
+  m_FillAmount: 0.5
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -410,7 +410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d99c2bbaf44e54da092da26178a8dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PressureMeterUI
-  pressureFill: {fileID: 1761570367935824440}
+  pressureFill: {fileID: 9122929213655378236}
   currentPressure: 0
   maxPressure: 100
   changeSpeed: 30
