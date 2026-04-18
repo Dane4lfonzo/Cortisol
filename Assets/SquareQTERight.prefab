@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3972945718135995971}
   - component: {fileID: 1585762566372091968}
   - component: {fileID: 2328571146615228657}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SquareQTERight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1843197933104017171, guid: a1aee81feba5381468428bdfc98e20f1, type: 3}
+  m_Sprite: {fileID: -8426763330837102253, guid: a2e40cdfee47b0c4a8e00e4487a731ec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -159,7 +159,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.6, y: 3.43}
+    oldSize: {x: 5.28, y: 5.1}
     newSize: {x: 3.6, y: 3.43}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
