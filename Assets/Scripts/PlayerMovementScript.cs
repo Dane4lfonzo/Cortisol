@@ -33,7 +33,6 @@ public class PlayerMovementScript : MonoBehaviour
     void Update()
     {
         MovementAnimations();
-        FlipAnim();
         TriggerCooldown();
 
         if (isChatting)
@@ -112,26 +111,6 @@ public class PlayerMovementScript : MonoBehaviour
     private void OnMovement(InputAction.CallbackContext context)
     {
         movement = context.ReadValue<Vector2>();
-    }
-
-    void FlipAnim()
-    {
-        if (movement.x > 0)
-        {
-            spriteAnim.flipX = false;
-        }
-        else if (movement.y > 0 && movement.x == 0)
-        {
-            spriteAnim.flipX = false;
-        }
-        else if (movement.y < 0 && movement.x == 0)
-        {
-            spriteAnim.flipX = false;
-        }
-        else if (movement.x < 0)
-        {
-            spriteAnim.flipX = true;
-        }
     }
 
     void MovementAnimations()

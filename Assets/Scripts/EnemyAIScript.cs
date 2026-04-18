@@ -22,11 +22,15 @@ public class EnemyAiScript : MonoBehaviour
     private float chatTimer;
     private bool isChatting = false;
     private int enemyCollisionLayer;
+    private Animator enemyAnim;
+    private int setAngleX;
+    private int setAngleY;
 
 
     void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
+        enemyAnim = GetComponent<Animator>();
         //Logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
         PlayerObject = GameObject.Find("Player");
         player = PlayerObject.transform;
@@ -36,6 +40,8 @@ public class EnemyAiScript : MonoBehaviour
     {
         Detection();
         TriggerCooldown();
+        MovementAnimations();
+        CheckPlayerAngle();
 
         if (isChatting)
         {
@@ -47,7 +53,12 @@ public class EnemyAiScript : MonoBehaviour
     {
         if (canSeePlayer && !isChatting)
         {
-            myRigidbody.MovePosition(myRigidbody.position + movement * moveSpeed * Time.fixedDeltaTime);
+            //myRigidbody.MovePosition(myRigidbody.position + movement * moveSpeed * Time.fixedDeltaTime);
+            myRigidbody.linearVelocity = movement * moveSpeed;
+        }
+        else
+        {
+            myRigidbody.linearVelocity = Vector2.zero;
         }
     }
 
@@ -135,6 +146,30 @@ public class EnemyAiScript : MonoBehaviour
         }   
     }
 
+    void MovementAnimations()
+    {
+        enemyAnim.SetFloat("MoveSpeed", myRigidbody.linearVelocity.magnitude);
+        enemyAnim.SetFloat("MoveX", setAngleX);
+        enemyAnim.SetFloat("MoveY", setAngleY);
+    }
+
+    void CheckPlayerAngle()
+    {
+        float diffX = PlayerObject.transform.position.x - transform.position.x;
+        float diffY = PlayerObject.transform.position.y - transform.position.y;
+
+        // Check if we are moving more horizontally than vertically
+        if (Mathf.Abs(diffX) > Mathf.Abs(diffY))
+        {
+            setAngleY = 0;
+            setAngleX = diffX > 0 ? 1 : -1; // 1 for Right, -1 for Left
+        }
+        else
+        {
+            setAngleX = 0;
+            setAngleY = diffY > 0 ? 1 : -1; // 1 for Up (Back), -1 for Down (Front)
+        }
+    }
 
 
     void OnDrawGizmosSelected()
