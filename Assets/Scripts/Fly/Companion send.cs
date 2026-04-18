@@ -2,83 +2,80 @@ using UnityEngine;
 
 public class CompanionSend : MonoBehaviour
 {
-    [Header("References")]
-    public CompanionLockOn lockOnScript;   // drag the object with CompanionLockOn here
-    public Transform player;               // drag player here
+    [Header("Test Target")]
+    public Transform testTarget;
 
-    [Header("Send Settings")]
+    [Header("Return Point")]
+    public Transform homePoint;
+
+    [Header("Controls")]
     public KeyCode sendKey = KeyCode.E;
+
+    [Header("Movement")]
     public float flySpeed = 5f;
     public float stopDistance = 0.4f;
 
-    [Header("Return Settings")]
-    public float returnDelay = 0.5f;
+    [Header("Cooldown")]
+    public float cooldownDuration = 3f;
+    public float cooldownTimer = 0f;
 
-    private Transform target;
-    private bool isFlyingToTarget = false;
-    private bool isReturning = false;
-    private float returnTimer = 0f;
+    [Header("State")]
+    public bool isFlying = false;
+    public bool isReturning = false;
 
     void Update()
     {
-        // send companion to locked target
-        if (Input.GetKeyDown(sendKey))
+        if (cooldownTimer > 0f)
         {
-            if (lockOnScript != null && lockOnScript.currentTarget != null && !isFlyingToTarget && !isReturning)
-            {
-                target = lockOnScript.currentTarget;
-                isFlyingToTarget = true;
-            }
+            cooldownTimer -= Time.deltaTime;
         }
 
-        // fly to target
-        if (isFlyingToTarget && target != null)
+        if (Input.GetKeyDown(sendKey) && !isFlying && !isReturning && cooldownTimer <= 0f)
+        {
+            isFlying = true;
+        }
+
+        if (isFlying && testTarget != null)
         {
             transform.position = Vector2.MoveTowards(
                 transform.position,
-                target.position,
+                testTarget.position,
                 flySpeed * Time.deltaTime
             );
 
-            float distance = Vector2.Distance(transform.position, target.position);
+            float distance = Vector2.Distance(transform.position, testTarget.position);
 
             if (distance <= stopDistance)
             {
-                EnemyDistract distractScript = target.GetComponent<EnemyDistract>();
+                Debug.Log("Reached target!");
 
-                if (distractScript != null)
+                EnemyDistract distract = testTarget.GetComponent<EnemyDistract>();
+                if (distract != null)
                 {
-                    distractScript.Distract();
+                    distract.Distract();
                 }
 
-                isFlyingToTarget = false;
+                isFlying = false;
                 isReturning = true;
-                returnTimer = returnDelay;
+
+                // start cooldown after successful use
+                cooldownTimer = cooldownDuration;
             }
         }
 
-        // short pause before return
-        if (isReturning && returnTimer > 0f)
-        {
-            returnTimer -= Time.deltaTime;
-            return;
-        }
-
-        // return to player
-        if (isReturning && player != null)
+        if (isReturning && homePoint != null)
         {
             transform.position = Vector2.MoveTowards(
                 transform.position,
-                player.position,
+                homePoint.position,
                 flySpeed * Time.deltaTime
             );
 
-            float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+            float distance = Vector2.Distance(transform.position, homePoint.position);
 
-            if (distanceToPlayer <= stopDistance)
+            if (distance <= stopDistance)
             {
                 isReturning = false;
-                target = null;
             }
         }
     }
